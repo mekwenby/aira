@@ -1,7 +1,7 @@
 # AIRA（艾娜）
 ##### 个人主页，基于Python3.8开发
 
-![1](images\1.webp)
+![1](images/1.webp)
 
 #### 功能：
 
