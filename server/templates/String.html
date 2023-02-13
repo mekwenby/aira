@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% block titel %}
+    <title>字符串加密</title>
+{% endblock %}
+
+{% block a %}
+    <div class="container">
+        <hr>
+        <form action="/sring" method="post">
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">字符串:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="text"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">加密类型:</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="class">
+                    <option>MD5</option>
+                    <option>SHA1</option>
+                    <option>SHA256</option>
+                    <option>Base64Encode</option>
+                    <option>Base64Decode</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+
+        {% if s|length >0 %}
+
+            <hr>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">输出:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="text">{{ s }}</textarea>
+            </div>
+
+
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}

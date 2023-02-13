@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% block titel %}
+    <script>
+        function change() {
+            var num = document.getElementById("range");
+            var location = document.getElementById("show");
+            location.value = num.value;
+        }
+    </script>
+
+    <title>密码服务</title>
+{% endblock %}
+{% block a %}
+    <div class="container">
+        <hr>
+        <form action="/passwdc" method="post">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">数据类型：</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="class">
+                    <option>SHA</option>
+                    <option>Letters</option>
+                    <option>Numbe</option>
+                    <option>UUID</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="formControlRange">字符串长度：</label>
+                <input type="range" oninput="change()" class="form-control-range" id="formControlRange" max="128"
+                       min="4" value="16" name="length">
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput2">备注信息</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2"
+                       placeholder="Another input placeholder" name="text" value="None">
+            </div>
+
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+        <hr>
+        {% if pg != None %}
+            <div class="card">
+                <div class="card-header">
+                    New
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{ pg.passwd }}</p>
+                        <footer class="blockquote-footer">{{ pg.info }} <cite
+                                title="Source Title">{{ pg.Ctime|unix }}</cite>
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if pg_list|length > 0 %}
+            <hr>
+            <h5>生成记录：</h5>
+            {% for pg in pg_list %}
+
+                <div class="card">
+                    <div class="card-header">
+                        {{ pg.user }}
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>{{ pg.passwd }}</p>
+                            <footer class="blockquote-footer">{{ pg.info }} <cite
+                                    title="Source Title">{{ pg.Ctime|unix }} <a href="/pgdel/{{ pg.id }}">del</a></cite>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div><br>
+
+            {% endfor %}
+
+
+        {% endif %}
+    </div>
+
+
+{% endblock %}

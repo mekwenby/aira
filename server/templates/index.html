@@ -1,0 +1,119 @@
+{% extends 'bash.html' %}
+
+
+{% block titel %}
+    <title>AIRA {{ user.name|capitalize }}</title>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Hello,{{ user.name|capitalize }}!</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">
+                            密码服务
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/passwd">密码管理器</a>
+                            <a class="dropdown-item" href="/passwdc">密码生成器</a>
+                            <a class="dropdown-item" href="/sring">字符串加密</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">
+                            日程服务
+                        </a>
+                        <div class="dropdown-menu">
+
+                            <a class="dropdown-item" href="/schedule">管理日程</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/books">书签</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">
+                            设置
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/centre">个人中心</a>
+                            <a class="dropdown-item" href="#">邮件服务</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/logout">退出</a>
+                        </div>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="https://cn.bing.com/search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Bing" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        <img width="100%" src="static/images/aira.webp" alt="">
+    </div>
+
+
+{% endblock %}
+{% block a %}
+    <div class="container">
+
+    {% if schedule != 'None' %}
+        <hr>
+        <div class="card"> {# 近期日程框 #}
+            <div class="card-header">
+                近期日程
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+
+                    <p>{{ schedule.text }}</p>
+                    <footer class="blockquote-footer">{{ schedule.time|unix }}<cite
+                            title="Source Title">{{ '``` 还剩%s天'|format(schedule.time|ctabs) }}</cite>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    {% endif %}
+    {# END #}
+
+    {% if book_list|length > 0 %}
+        <hr>
+        <div style="background-color: rgba(47,151,255,0.35); border-radius: 5px">
+            <h5>书签</h5>
+            {% for book in book_list %}
+
+                <button type="button" class="btn btn-secondary m-1" data-container="body" data-toggle="popover"
+                        data-placement="top" data-content="Top popover">
+                    <a href="{{ book.url }}" style="color: rgb(255,255,255)">{{ book.info }}
+                        {#  <img src="{{ book.url|ico }} " alt="{{ book.info }}" width="64" height="64">#}</a>
+                </button>
+
+            {% endfor %}
+        </div>
+    {% endif %}
+    <hr>
+    <div>
+        <meta http-equiv="X-Frame-Options" content="ALLOW-FROM">
+        {# 天气预留区 #}
+    </div>
+
+
+{% endblock %}
+
+
+{% block b %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block titel %}
+    <title>书签</title>
+{% endblock %}
+
+{% block a %}
+    <div class="container">
+        <hr>
+    </div>
+    <div class="container" style="background-color: #e1f0fc ;border-radius: 25px ;">
+
+        <h4>添加书签</h4>
+        <form method="post" action="/addbooks">
+            <div class="form-group">
+                <label for="formGroupExampleInput">名称</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="name">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">网址</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" name="url">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">添加</button>
+        </form>
+    </div>
+    <div class="container text-center">
+
+        {% if book_list|length > 0 %}
+            <hr>
+        {% endif %}
+        {% for book in book_list %}
+
+            <div class="row container">
+                <div class="col container">
+                    {{ book.info }}
+                </div>
+                <div class="col-5">
+                    {{ book.url }}
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-danger"><a href="/delbooks?id={{ book.id }}">删除</a>
+                    </button>
+
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+
+    </div>
+{% endblock %}

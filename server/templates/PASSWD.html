@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+{% block titel %}
+    <title>密码服务</title>
+{% endblock %}
+
+{% block a %}
+    <div class="container">
+        <hr>
+    </div>
+    {% if pb_list|length > 0 %}
+        <div class="container">
+            {% for data in pb_list %}
+                {# 密码块 #}
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary m-1" data-toggle="modal"
+                        data-target="{{ '#%s' | format(data.info|md5) }}">
+                    {{ data.info }}
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="{{ data.info|md5 }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ data.info }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ '账号: %s' | format(data.user) }}</p>
+                                <p>{{ '密码: %s' | format(data.passwd) }}</p>
+                                <p>请妥善保管!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary"><a
+                                        href="/delpasswdbox/{{ data.id }}" style="color: #ffffff">删除</a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+            <hr>
+        </div>
+    {% endif %}
+
+
+    <div class="container w-auto" style="background-color: #cbf8cb ;border-radius: 25px ;">
+
+        <h4>添加账号</h4>
+        <form method="post" action="/addpasswdbox">
+            <div class="form-group">
+                <label for="formGroupExampleInput">名称</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="name">
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput">账号</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name="user">
+            </div>
+
+            <div class="form-group">
+                <label for="formGroupExampleInput2">密码</label>
+                <input type="password" class="form-control" id="formGroupExampleInput2" name="passwd">
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2">确认</button>
+        </form>
+    </div>
+
+
+{% endblock %}
